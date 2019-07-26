@@ -5,7 +5,7 @@ import '../models/item_model.dart';
 
 class Repository {
   NewsApiProvider apiProvider = new NewsApiProvider();
-  NewsDbProvider dbProvider = new NewsDbProvider();
+  
 
 
   Future<List<int>> fetchTopIds() {
@@ -13,14 +13,14 @@ class Repository {
   }
 
   Future<ItemModel> fetchItem(int id) async{
-    var item = await dbProvider.fetchItem(id);
+    var item = await newsDbProvider.fetchItem(id);
 
     if( item != null) {
       return item;
     }
 
     item = await apiProvider.fetchItem(id);
-    dbProvider.addItemToDb(item);
+    newsDbProvider.addItemToDb(item);
 
     return item;
   }
