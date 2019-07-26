@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
+import 'screens/news_list.dart';
+import 'blocs/stories_provider.dart';
 
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Omg"),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            print("Hi");
-          },
-          child: Icon(Icons.add),
-        ),
-      );
+    
+    return StoriesProvider(
+      child: NewsList(),
+    );
   }
 }

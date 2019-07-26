@@ -1,20 +1,23 @@
 import 'package:http/http.dart' show Client;
 import 'dart:convert';
+import 'dart:async';
 import '../models/item_model.dart';
 
+final _root = 'https://hacker-news.firebaseio.com/v0';
+
 class NewsApiProvider {
-  final url = 'https://hacker-news.firebaseio.com/v0';
+  
   Client client = new Client();
 
-  Future<List<int>> fetchTopIds() async{
-    final resp = await client.get('$url/topstories.json');
-    final List<int> ids = json.decode(resp.body);
-
+  Future<List<dynamic>> fetchTopIds() async{
+    final resp = await client.get('$_root/topstories.json');
+    final ids = List<int>.from(json.decode(resp.body));
+    
     return ids;
   }
 
   Future<ItemModel> fetchItem(int id) async {
-    final resp = await client.get('$url/item/$id.json');
+    final resp = await client.get('$_root/item/$id.json');
     final parsedJson = json.decode(resp.body);
 
     return new ItemModel.fromJson(parsedJson);

@@ -8,7 +8,7 @@ class Repository {
   
 
 
-  Future<List<int>> fetchTopIds() {
+  Future<List<dynamic>> fetchTopIds() {
     return apiProvider.fetchTopIds();
   }
 
