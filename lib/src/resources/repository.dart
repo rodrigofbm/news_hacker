@@ -13,6 +13,9 @@ class Repository {
   }
 
   Future<ItemModel> fetchItem(int id) async{
+    newsDbProvider.init();
+    await Future.delayed(Duration(seconds: 1));
+
     var item = await newsDbProvider.fetchItem(id);
 
     if( item != null) {
