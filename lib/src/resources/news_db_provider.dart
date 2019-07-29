@@ -55,7 +55,7 @@ class NewsDbProvider {
   }
 
   Future<int> addItemToDb(ItemModel item) {
-    return db.insert("Items", item.toMapTypeForDb(), conflictAlgorithm: ConflictAlgorithm.ignore);
+    return db.insert("Items", item.toMapTypeForDb(), conflictAlgorithm: ConflictAlgorithm.replace);
   }
 }
 
