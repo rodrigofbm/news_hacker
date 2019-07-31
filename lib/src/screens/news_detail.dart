@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import '../models/item_model.dart';
 import '../blocs/comments_provider.dart';
+import '../widgets/comment.dart';
 
 class NewsDetail extends StatelessWidget {
   final int id;
@@ -24,18 +25,18 @@ class NewsDetail extends StatelessWidget {
     return StreamBuilder(
       stream: bloc.itemWithComments,
       builder: (context, AsyncSnapshot<Map<int, Future<ItemModel>>> snapshot) {
-        if(!snapshot.hasData) {
+        if (!snapshot.hasData) {
           return CircularProgressIndicator();
         }
-        
+
         return FutureBuilder(
           future: snapshot.data[id],
           builder: (context, AsyncSnapshot<ItemModel> itemSnapshot) {
-            if(!itemSnapshot.hasData) {
+            if (!itemSnapshot.hasData) {
               return Text('getting comments...');
             }
 
-            return buildTitle(itemSnapshot.data);
+            return buildList(itemSnapshot.data, snapshot.data);
           },
         );
       },
@@ -49,11 +50,27 @@ class NewsDetail extends StatelessWidget {
       child: Text(
         item.title,
         textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 20.0,
-          fontWeight: FontWeight.bold
-        ),
+        style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
       ),
+    );
+  }
+
+  Widget buildList(ItemModel item, Map<int, Future<ItemModel>> itemMap) {
+    final children = <Widget>[];
+    children.add(buildTitle(item));
+
+    final commentsList = item.kids.map((commentId) {
+      return Comment(
+        itemId: commentId,
+        itemMap: itemMap,
+        depth: 1,
+      );
+    }).toList();
+
+    children.addAll(commentsList);
+    
+    return ListView(
+      children: children,
     );
   }
 }

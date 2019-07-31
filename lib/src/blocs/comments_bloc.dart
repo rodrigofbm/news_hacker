@@ -30,7 +30,7 @@ class CommentsBloc {
           item.kids.forEach((kidId) => fetcheItemWithComments(kidId));
         });
 
-        return cache; // ADD THIS!!!!! <<<--------------
+        return cache;
       },
       <int, Future<ItemModel>>{},
     );
