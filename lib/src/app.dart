@@ -30,10 +30,10 @@ class App extends StatelessWidget {
         final commentsBloc = CommentsProvides.of(context);
         final itemId = int.parse(settings.name.replaceFirst('/', ''));
 
-        //pontos de start
+        //ponto de start
         commentsBloc.fetcheItemWithComments(itemId);
 
-        return NewsDetail(id: itemId);
+        return NewsDetail(itemId: itemId);
       });
     }
   }

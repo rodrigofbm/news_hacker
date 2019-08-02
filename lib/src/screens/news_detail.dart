@@ -5,9 +5,9 @@ import '../blocs/comments_provider.dart';
 import '../widgets/comment.dart';
 
 class NewsDetail extends StatelessWidget {
-  final int id;
+  final int itemId;
 
-  NewsDetail({this.id});
+  NewsDetail({this.itemId});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class NewsDetail extends StatelessWidget {
         }
 
         return FutureBuilder(
-          future: snapshot.data[id],
+          future: snapshot.data[itemId],
           builder: (context, AsyncSnapshot<ItemModel> itemSnapshot) {
             if (!itemSnapshot.hasData) {
               return Text('getting comments...');
@@ -61,7 +61,7 @@ class NewsDetail extends StatelessWidget {
 
     final commentsList = item.kids.map((commentId) {
       return Comment(
-        itemId: commentId,
+        commentId: commentId,
         itemMap: itemMap,
         depth: 1,
       );

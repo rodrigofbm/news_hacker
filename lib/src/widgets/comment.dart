@@ -3,15 +3,15 @@ import '../models/item_model.dart';
 import '../widgets/loading_container_tile.dart';
 
 class Comment extends StatelessWidget {
-  final int itemId;
+  final int commentId;
   final double depth;
   final Map<int,Future<ItemModel>> itemMap;
 
-  const Comment({this.itemId, this.itemMap, this.depth});
+  const Comment({this.commentId, this.itemMap, this.depth});
   
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: itemMap[itemId],
+      future: itemMap[commentId],
       builder: (context, AsyncSnapshot<ItemModel> snapshot) {
         if(!snapshot.hasData) {
           return LoadingContainerTile();
@@ -31,8 +31,8 @@ class Comment extends StatelessWidget {
           Divider()
         ];
 
-        snapshot.data.kids.forEach((kidId) {
-          children.add(Comment(itemId: kidId, itemMap: itemMap, depth: depth + 1,));
+        comment.kids.forEach((kidId) {
+          children.add(Comment(commentId: kidId, itemMap: itemMap, depth: depth + 1,));
         });
 
         return Column(
